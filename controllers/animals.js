@@ -29,8 +29,19 @@ const update = async (req, res) => {
   }
 }
 
+const deleteAnimal = async (req, res) => {
+  try {
+    const animal = await Animal.findByPk(req.params.id)
+    await animal.destroy()
+    res.status(200).json(animal)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 module.exports = {
   create,
   index,
   update,
+  delete: deleteAnimal
 }
